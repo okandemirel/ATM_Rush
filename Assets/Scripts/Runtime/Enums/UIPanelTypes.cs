@@ -6,6 +6,7 @@ namespace Runtime.Enums
         Level,
         Win,
         Fail,
+        Shop,
 
         //*ADDITION*//
     }

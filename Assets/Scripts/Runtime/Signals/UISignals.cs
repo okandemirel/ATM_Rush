@@ -1,12 +1,15 @@
-using Extensions;
+using System;
+using Runtime.Extentions;
 using UnityEngine.Events;
 
 namespace Runtime.Signals
 {
     public class UISignals : MonoSingleton<UISignals>
     {
-        public UnityAction onUpdateThrowableCount = delegate { };
-        public UnityAction onUpdateLeftEnemyCount = delegate { };
-        public UnityAction<int> onSetNewLevelValue = delegate { };
+        public UnityAction onSetIncomeLvlText = delegate { };
+        public UnityAction onSetStackLvlText = delegate { };
+        public UnityAction<byte> onSetNewLevelValue = delegate { };
+        public UnityAction<int> onSetMoneyValue = delegate { };
+        public Func<int> onGetMoveValue = delegate { return 0; };
     }
 }

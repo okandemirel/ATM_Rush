@@ -29,7 +29,6 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - openai.api.unity
     - Assembly-CSharp-firstpass
     - Boxophobic.PolyverseSkies.Runtime
     - MoreMountains.NiceVibrations.Haptics
@@ -39,15 +38,11 @@ MonoBehaviour:
     - Boxophobic.Utils.Scripts
     - MoreMountains.NiceVibrations
     - Boxophobic.PolyverseSkies.Scripts
-    - AssetInventory.Editor
     - Boxophobic.Utils.Editor
     - PPv2URPConverters
-    - openai.api.unity.editor
     - MoreMountains.NiceVibrations.Editor
     - Boxophobic.PolyverseSkies.Editor
-    - JD.EditorAudioUtils.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
-    - CodeStage.Package2Folder
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

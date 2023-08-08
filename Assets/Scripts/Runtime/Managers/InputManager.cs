@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Runtime.Data.UnityObject;
 using Runtime.Keys;
 using Runtime.Signals;
-using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,37 +10,7 @@ namespace Runtime.Managers
 {
     public class InputManager : MonoBehaviour
     {
-        #region Singleton
-
-        public static InputManager Instance;
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
-
-        #endregion
-
         #region Self Variables
-
-        #region Public Variables
-
-        [Header("Data")] public CD_Input InputData;
-        [Header("Additional Variables")] public bool IsAvailableForTouch;
-
-        #endregion
-
-        #region Serialized Variables
-
-        [SerializeField] private bool isFirstTimeTouchTaken;
-
-        #endregion
 
         #region Private Variables
 
@@ -51,6 +21,10 @@ namespace Runtime.Managers
         private float _currentVelocity; //ref type
         private Vector2? _mousePosition; //ref type
         private Vector3 _moveVector; //ref type
+
+        [Header("Data")] private CD_Input _data;
+        [ShowInInspector] private bool _isFirstTimeTouchTaken;
+        [ShowInInspector] private bool _isAvailableForTouch;
 
         #endregion
 
@@ -63,14 +37,25 @@ namespace Runtime.Managers
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onReset += ResetData;
+            CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onPlay += OnPlay;
             InputSignals.Instance.onChangeInputState += OnChangeInputState;
         }
 
+        private void OnPlay()
+        {
+            _isAvailableForTouch = true;
+        }
+
+
+        private void OnChangeInputState(bool state)
+        {
+            _isAvailableForTouch = state;
+        }
+
         private void UnSubscribeEvents()
         {
-            CoreGameSignals.Instance.onReset -= ResetData;
+            CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             InputSignals.Instance.onChangeInputState -= OnChangeInputState;
         }
@@ -83,7 +68,7 @@ namespace Runtime.Managers
 
         private void Update()
         {
-            if (!IsAvailableForTouch) return;
+            if (!_isAvailableForTouch) return;
 
             if (Input.GetMouseButtonUp(0) && !IsPointerOverUIElement())
             {
@@ -97,10 +82,10 @@ namespace Runtime.Managers
             {
                 _isTouching = true;
                 InputSignals.Instance.onInputTaken?.Invoke();
-                if (!isFirstTimeTouchTaken)
+                if (!_isFirstTimeTouchTaken)
                 {
-                    isFirstTimeTouchTaken = true;
-                    //onFirstTimeTouchTaken?.Invoke();
+                    _isFirstTimeTouchTaken = true;
+                    InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
                 }
 
                 _mousePosition = Input.mousePosition;
@@ -112,54 +97,45 @@ namespace Runtime.Managers
                 {
                     if (_mousePosition != null)
                     {
-                        Vector2 mouseDeltaPos = (Vector2) Input.mousePosition - _mousePosition.Value;
+                        Vector2 mouseDeltaPos = (Vector2)Input.mousePosition - _mousePosition.Value;
 
 
-                        if (mouseDeltaPos.x > InputData.Data.HorizontalInputSpeed)
-                            _moveVector.x = InputData.Data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
-                        else if (mouseDeltaPos.x < -InputData.Data.HorizontalInputSpeed)
-                            _moveVector.x = -InputData.Data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
+                        if (mouseDeltaPos.x > _data.Data.HorizontalInputSpeed)
+                            _moveVector.x = _data.Data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
+                        else if (mouseDeltaPos.x < -_data.Data.HorizontalInputSpeed)
+                            _moveVector.x = -_data.Data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
                         else
                             _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity,
-                                InputData.Data.HorizontalInputClampStopValue);
+                                _data.Data.HorizontalInputClampStopValue);
 
                         _mousePosition = Input.mousePosition;
 
                         InputSignals.Instance.onInputDragged?.Invoke(new HorizontalnputParams()
                         {
                             HorizontalInputValue = _moveVector.x,
-                            HorizontalInputClampNegativeSide = InputData.Data.HorizontalInputClampNegativeSide,
-                            HorizontalInputClampPositiveSide = InputData.Data.HorizontalInputClampPositiveSide
+                            HorizontalInputClampSides = _data.Data.HorizontalInputClampNegativeSides,
                         });
                     }
                 }
             }
         }
 
-        private void OnPlay()
-        {
-            IsAvailableForTouch = true;
-        }
-
-
-        private void OnChangeInputState(bool state)
-        {
-            IsAvailableForTouch = state;
-        }
 
         private bool IsPointerOverUIElement()
         {
-            var eventData = new PointerEventData(EventSystem.current);
-            eventData.position = Input.mousePosition;
+            var eventData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
             var results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
             return results.Count > 0;
         }
 
-        private void ResetData()
+        private void OnReset()
         {
             _isTouching = false;
-            isFirstTimeTouchTaken = false;
+            _isFirstTimeTouchTaken = false;
         }
     }
 }

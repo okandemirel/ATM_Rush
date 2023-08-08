@@ -1,4 +1,4 @@
-using Managers;
+using System;
 using Runtime.Enums;
 using Runtime.Managers;
 using Sirenix.OdinInspector;
@@ -60,6 +60,14 @@ namespace Runtime.Handler
                     button.onClick.AddListener(_manager.OnRestartLevel);
                     break;
                 }
+                case UIEventSubscriptionTypes.OnIncreaseIncome:
+                    button.onClick.AddListener(_manager.OnIncomeUpdate);
+                    break;
+                case UIEventSubscriptionTypes.OnIncreaseStack:
+                    button.onClick.AddListener(_manager.OnStackUpdate);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -82,6 +90,14 @@ namespace Runtime.Handler
                     button.onClick.RemoveListener(_manager.OnRestartLevel);
                     break;
                 }
+                case UIEventSubscriptionTypes.OnIncreaseIncome:
+                    button.onClick.RemoveListener(_manager.OnIncomeUpdate);
+                    break;
+                case UIEventSubscriptionTypes.OnIncreaseStack:
+                    button.onClick.RemoveListener(_manager.OnStackUpdate);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

@@ -1,5 +1,4 @@
 using Runtime.Signals;
-using Signals;
 using TMPro;
 using UnityEngine;
 
@@ -11,7 +10,13 @@ namespace Runtime.Controllers.UI
 
         #region Serialized Variables
 
-        [SerializeField] private TextMeshProUGUI levelText;
+        [SerializeField] private TextMeshProUGUI levelText, moneyText;
+
+        #endregion
+
+        #region Private Variables
+
+        private int _moneyValue;
 
         #endregion
 
@@ -25,21 +30,36 @@ namespace Runtime.Controllers.UI
         private void SubscribeEvents()
         {
             UISignals.Instance.onSetNewLevelValue += OnSetNewLevelValue;
+            UISignals.Instance.onSetMoneyValue += OnSetMoneyValue;
+            UISignals.Instance.onGetMoveValue += OnGetMoveValue;
+        }
+
+        private int OnGetMoveValue()
+        {
+            return _moneyValue;
+        }
+
+        private void OnSetNewLevelValue(byte levelValue)
+        {
+            levelText.text = "LEVEL " + ++levelValue;
+        }
+
+        private void OnSetMoneyValue(int moneyValue)
+        {
+            _moneyValue = moneyValue;
+            moneyText.text = moneyValue.ToString();
         }
 
         private void UnsubscribeEvents()
         {
             UISignals.Instance.onSetNewLevelValue -= OnSetNewLevelValue;
+            UISignals.Instance.onSetMoneyValue -= OnSetMoneyValue;
+            UISignals.Instance.onGetMoveValue -= OnGetMoveValue;
         }
 
         private void OnDisable()
         {
             UnsubscribeEvents();
-        }
-
-        public void OnSetNewLevelValue(int levelValue)
-        {
-            levelText.text = "LEVEL " + ++levelValue;
         }
     }
 }

@@ -1,8 +1,7 @@
 using _Modules.SaveModule.Scripts.Data;
-using _Modules.SaveModule.Scripts.Managers;
 using UnityEngine;
 
-namespace Managers
+namespace _Modules.SaveModule.Scripts.Managers
 {
     public class SaveDistributorManager:MonoBehaviour
     {

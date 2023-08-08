@@ -1,10 +1,10 @@
 using System;
 using _Modules.ObjectPooling.Scripts.Enums;
-using Extensions;
+using Runtime.Extentions;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Signals
+namespace _Modules.ObjectPooling.Scripts.Signals
 {
     public class PoolSignals : MonoSingleton<PoolSignals>
     {

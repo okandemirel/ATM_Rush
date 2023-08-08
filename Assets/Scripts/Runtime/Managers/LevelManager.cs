@@ -1,10 +1,9 @@
 ﻿using _Modules.SaveModule.Scripts.Data;
+using _Modules.SaveModule.Scripts.Managers;
 using DG.Tweening;
-using Managers;
 using Runtime.Commands;
 using Runtime.Enums;
 using Runtime.Signals;
-using Signals;
 using UnityEngine;
 
 namespace Runtime.Managers
@@ -27,14 +26,14 @@ namespace Runtime.Managers
 
         [Header("Holder")] [SerializeField] internal GameObject levelHolder;
 
-        [Space] [SerializeField] private int totalLevelCount;
+        [Space] [SerializeField] private byte totalLevelCount;
 
         #endregion
 
         #region Private Variables
 
-        private LevelLoaderCommand _levelLoader;
-        private LevelDestroyerCommand _levelDestroyer;
+        private readonly LevelLoaderCommand _levelLoader;
+        private readonly LevelDestroyerCommand _levelDestroyer;
         private GameData _gameData;
 
         #endregion
@@ -83,9 +82,9 @@ namespace Runtime.Managers
         }
 
 
-        private int GetLevelID()
+        private byte GetLevelID()
         {
-            return _gameData.Level % totalLevelCount;
+            return (byte)(_gameData.Level % totalLevelCount);
         }
 
 
@@ -96,17 +95,14 @@ namespace Runtime.Managers
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
             DOVirtual.DelayedCall(.1f, () => CoreGameSignals.Instance.onLevelInitialize?.Invoke(GetLevelID()));
             CoreUISignals.Instance.onCloseAllPanels?.Invoke();
-            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 0);
-            
         }
 
         private void OnRestartLevel()
         {
+            SaveDistributorManager.SaveData();
             CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
             DOVirtual.DelayedCall(.1f, () => CoreGameSignals.Instance.onLevelInitialize?.Invoke(GetLevelID()));
             CoreUISignals.Instance.onCloseAllPanels?.Invoke();
-            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 0);
-            SaveDistributorManager.SaveData();
         }
     }
 }

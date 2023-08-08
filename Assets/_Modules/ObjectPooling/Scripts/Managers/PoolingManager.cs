@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using _Modules.ObjectPooling.Scripts.Data.UnityObjects;
 using _Modules.ObjectPooling.Scripts.Enums;
-using Signals;
+using _Modules.ObjectPooling.Scripts.Signals;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Managers
+namespace _Modules.ObjectPooling.Scripts.Managers
 {
     public class PoolingManager : MonoBehaviour
     {

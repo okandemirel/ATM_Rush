@@ -1,28 +1,11 @@
 ﻿using Runtime.Enums;
 using Runtime.Signals;
-using Signals;
 using UnityEngine;
 
 namespace Runtime.Managers
 {
     public class UIManager : MonoBehaviour
     {
-        #region Self Variables
-
-        #region Public Variables
-
-        #endregion
-
-        #region Serialized Variables
-
-        #endregion
-
-        #region Private Variables
-
-        #endregion
-
-        #endregion
-
         private void OnEnable()
         {
             CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
@@ -35,30 +18,24 @@ namespace Runtime.Managers
 
         private void OpenStartPanel()
         {
-            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 1);
+            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 0);
+            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Level, 1);
+            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Shop, 2);
         }
 
-        private void OnDisable()
+        private void OnLevelInitialize(byte levelValue)
         {
-            CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
-            CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
-            CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
-        }
-
-
-        private void OnLevelInitialize(int levelValue)
-        {
-            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Level, 0);
-            UISignals.Instance.onSetNewLevelValue?.Invoke((int)levelValue);
+            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 0);
+            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Level, 1);
+            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Shop, 2);
+            UISignals.Instance.onSetNewLevelValue?.Invoke(levelValue);
         }
 
         public void OnPlay()
         {
             CoreGameSignals.Instance.onPlay?.Invoke();
-            CoreUISignals.Instance.onClosePanel?.Invoke(1);
-            //CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Throw, 1);
-            //CameraSignals.Instance.onChangeCameraState?.Invoke(CameraStates.Throw);
+            CoreUISignals.Instance.onClosePanel?.Invoke(0);
+            CoreUISignals.Instance.onClosePanel?.Invoke(2);
         }
 
         private void OnOpenWinPanel()
@@ -93,10 +70,30 @@ namespace Runtime.Managers
             OnOpenWinPanel();
         }
 
+        public void OnIncomeUpdate()
+        {
+            CoreGameSignals.Instance.onClickIncome?.Invoke();
+            UISignals.Instance.onSetIncomeLvlText?.Invoke();
+        }
+
+        public void OnStackUpdate()
+        {
+            CoreGameSignals.Instance.onClickStack?.Invoke();
+            UISignals.Instance.onSetStackLvlText?.Invoke();
+        }
+
+        private void OnDisable()
+        {
+            CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
+            CoreGameSignals.Instance.onReset -= OnReset;
+            CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
+            CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+        }
+
+
         private void OnReset()
         {
             CoreUISignals.Instance.onCloseAllPanels?.Invoke();
-            CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 1);
         }
     }
 }

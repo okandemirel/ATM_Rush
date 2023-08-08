@@ -5,7 +5,7 @@ namespace _Modules.SaveModule.Scripts.Data
     public class GameData:ISaveableEntity
     {
         public int Coin; 
-        public int Level;
+        public byte Level;
         public bool Haptic;
         public int SFX;
         public string GetKey()
