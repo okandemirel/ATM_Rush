@@ -74,7 +74,7 @@ namespace Runtime.Controllers.UI
 
         private void ChangesIncomeInteractable()
         {
-            if (int.Parse(UISignals.Instance.onGetMoveValue?.Invoke().ToString()!) < int.Parse(incomeValue.text) ||
+            if (int.Parse(UISignals.Instance.onGetMoneyValue?.Invoke().ToString()!) < int.Parse(incomeValue.text) ||
                 CoreGameSignals.Instance.onGetIncomeLevel() >= 30)
             {
                 incomeLvlButton.interactable = false;
@@ -88,7 +88,7 @@ namespace Runtime.Controllers.UI
 
         private void ChangesStackInteractable()
         {
-            if (int.Parse(UISignals.Instance.onGetMoveValue?.Invoke().ToString()!) < int.Parse(stackValue.text) ||
+            if (int.Parse(UISignals.Instance.onGetMoneyValue?.Invoke().ToString()!) < int.Parse(stackValue.text) ||
                 CoreGameSignals.Instance.onGetStackLevel() >= 15)
             {
                 stackLvlButton.interactable = false;

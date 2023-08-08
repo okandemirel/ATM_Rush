@@ -1,6 +1,7 @@
 using Runtime.Signals;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace Runtime.Controllers.UI
 {
@@ -31,10 +32,10 @@ namespace Runtime.Controllers.UI
         {
             UISignals.Instance.onSetNewLevelValue += OnSetNewLevelValue;
             UISignals.Instance.onSetMoneyValue += OnSetMoneyValue;
-            UISignals.Instance.onGetMoveValue += OnGetMoveValue;
+            UISignals.Instance.onGetMoneyValue += OnGetMoneyValue;
         }
 
-        private int OnGetMoveValue()
+        private int OnGetMoneyValue()
         {
             return _moneyValue;
         }
@@ -54,7 +55,7 @@ namespace Runtime.Controllers.UI
         {
             UISignals.Instance.onSetNewLevelValue -= OnSetNewLevelValue;
             UISignals.Instance.onSetMoneyValue -= OnSetMoneyValue;
-            UISignals.Instance.onGetMoveValue -= OnGetMoveValue;
+            UISignals.Instance.onGetMoneyValue -= OnGetMoneyValue;
         }
 
         private void OnDisable()

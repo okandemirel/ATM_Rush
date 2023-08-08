@@ -126,7 +126,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 109
+  controlID: 119
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 147
+  controlID: 95
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 98
+  controlID: 62
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -326,7 +326,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 99
+  controlID: 63
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -515,23 +515,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Art/Animators
+    - Assets/Scripts/Runtime/Managers
     m_Globs: []
     m_OriginalText: 
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Art/Animators
+  - Assets/Scripts/Runtime/Managers
   m_LastFoldersGridSize: -1
   m_LastProjectPath: /Users/okan/Desktop/Udemy_ATM_Rush
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 127}
-    m_SelectedIDs: 8ab30000
-    m_LastClickedID: 45962
-    m_ExpandedIDs: 00000000387100003a7100003c7100003e7100001895000000ca9a3b
+    scrollPos: {x: 0, y: 217}
+    m_SelectedIDs: 84010100
+    m_LastClickedID: 65924
+    m_ExpandedIDs: 00000000cade000012ff0000660101006a01010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -559,7 +559,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000387100003a7100003c7100003e710000
+    m_ExpandedIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -689,23 +689,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: d4f8ffff38faffff3efaffff42faffff48faffff4efaffff50faffff52faffff5afaffff10fbffff
+      m_SelectedIDs: d6040100
+      m_LastClickedID: 66774
+      m_ExpandedIDs: 18a2ffff26a5ffff2ca5ffff30a5ffff36a5ffff3ca5ffff3ea5ffff40a5ffff48a5ffffa8a5ffff24a6ffff5604010086040100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: CameraManager
-        m_OriginalName: CameraManager
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -6284
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 2}
       m_SearchString: 

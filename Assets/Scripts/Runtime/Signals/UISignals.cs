@@ -10,6 +10,9 @@ namespace Runtime.Signals
         public UnityAction onSetStackLvlText = delegate { };
         public UnityAction<byte> onSetNewLevelValue = delegate { };
         public UnityAction<int> onSetMoneyValue = delegate { };
-        public Func<int> onGetMoveValue = delegate { return 0; };
+        public Func<int> onGetMoneyValue = delegate { return 0; };
+
+        public UnityAction onClickIncome = delegate { };
+        public UnityAction onClickStack = delegate { };
     }
 }

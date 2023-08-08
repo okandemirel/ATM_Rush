@@ -23,8 +23,7 @@ namespace Runtime.Signals
         public UnityAction<GameObject> onAtmTouched = delegate { };
         public UnityAction onMiniGameStart = delegate { };
 
-        public UnityAction onClickIncome = delegate { };
-        public UnityAction onClickStack = delegate { };
+        
 
         public Func<byte> onGetIncomeLevel = delegate { return 0; };
         public Func<byte> onGetStackLevel = delegate { return 0; };

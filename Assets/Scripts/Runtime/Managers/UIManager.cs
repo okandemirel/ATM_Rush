@@ -72,13 +72,13 @@ namespace Runtime.Managers
 
         public void OnIncomeUpdate()
         {
-            CoreGameSignals.Instance.onClickIncome?.Invoke();
+            UISignals.Instance.onClickIncome?.Invoke();
             UISignals.Instance.onSetIncomeLvlText?.Invoke();
         }
 
         public void OnStackUpdate()
         {
-            CoreGameSignals.Instance.onClickStack?.Invoke();
+            UISignals.Instance.onClickStack?.Invoke();
             UISignals.Instance.onSetStackLvlText?.Invoke();
         }
 

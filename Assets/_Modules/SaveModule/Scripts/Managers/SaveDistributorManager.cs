@@ -3,41 +3,43 @@ using UnityEngine;
 
 namespace _Modules.SaveModule.Scripts.Managers
 {
-    public class SaveDistributorManager:MonoBehaviour
+    public class SaveDistributorManager : MonoBehaviour
     {
         private static GameData _gameData;
-        private static readonly SaveManager _saveManager=new SaveManager();
-        [SerializeField] private bool autoSave=true;
-        
+        private static readonly SaveManager SaveManager = new SaveManager();
+        [SerializeField] private bool autoSave = true;
+
         private void Awake()
         {
-             GetSaveData();
+            GetSaveData();
         }
 
         public static GameData GetSaveData()
         {
             GameData GetData()
             {
-                return _saveManager.PreLoadData(new GameData());
+                return SaveManager.PreLoadData(new GameData());
             }
+
             if (_gameData is null)
             {
-                _gameData= GetData();
+                _gameData = GetData();
             }
+
             return _gameData;
         }
-        
+
         public static void SaveData()
         {
-            if (_gameData is null)GetSaveData();
-            _saveManager.PreSaveData(_gameData);
+            if (_gameData is null) GetSaveData();
+            SaveManager.PreSaveData(_gameData);
         }
-        
+
 #if UNITY_EDITOR
 
         private void OnApplicationQuit()
         {
-            if(autoSave)SaveData();
+            if (autoSave) SaveData();
         }
 #endif
 

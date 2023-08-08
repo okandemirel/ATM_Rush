@@ -3,7 +3,7 @@ using Runtime.Managers;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Runtime.Commands
+namespace Runtime.Commands.Level
 {
     public class LevelLoaderCommand : ICommand
     {

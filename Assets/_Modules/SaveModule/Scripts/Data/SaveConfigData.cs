@@ -4,7 +4,7 @@ namespace _Modules.SaveModule.Scripts.Data
 {
     public class SaveConfigData
     {
-        private const string _extention = ".es3";
+        private const string Extention = ".es3";
         private string _path;
         private string _dataKey;
 
@@ -16,7 +16,7 @@ namespace _Modules.SaveModule.Scripts.Data
 
         public string GetPathName<T>(T dataToSave) where T : ISaveableEntity
         {
-            _path = dataToSave.GetType().Name + _extention;
+            _path = dataToSave.GetType().Name + Extention;
             return _path;
         }
     }
