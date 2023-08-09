@@ -1,4 +1,3 @@
-using _Modules.SaveModule.Scripts.Managers;
 using Runtime.Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -93,7 +92,8 @@ namespace Runtime.Managers
 
         private int GetMoneyValue()
         {
-            return SaveDistributorManager.GetSaveData().Money;
+            if (!ES3.FileExists()) return 0;
+            return (int)(ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0);
         }
 
         private void RefreshMoney()

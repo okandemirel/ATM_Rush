@@ -8,12 +8,17 @@ namespace Runtime.Managers
     {
         private void OnEnable()
         {
-            CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
-            CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
-            CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+            SubscribeEvents();
 
             OpenStartPanel();
+        }
+
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
+            CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
+            CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+            CoreGameSignals.Instance.onReset += OnReset;
         }
 
         private void OpenStartPanel()
@@ -36,6 +41,7 @@ namespace Runtime.Managers
             CoreGameSignals.Instance.onPlay?.Invoke();
             CoreUISignals.Instance.onClosePanel?.Invoke(0);
             CoreUISignals.Instance.onClosePanel?.Invoke(2);
+            CameraSignals.Instance.onChangeCameraState?.Invoke(CameraStates.Follow);
         }
 
         private void OnOpenWinPanel()
@@ -84,16 +90,21 @@ namespace Runtime.Managers
 
         private void OnDisable()
         {
+            UnSubscribeEvents();
+        }
+
+        private void UnSubscribeEvents()
+        {
             CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
-            CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
             CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+            CoreGameSignals.Instance.onReset -= OnReset;
         }
 
 
         private void OnReset()
         {
-            CoreUISignals.Instance.onCloseAllPanels?.Invoke();
+            //CoreUISignals.Instance.onCloseAllPanels?.Invoke();
         }
     }
 }

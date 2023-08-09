@@ -25,7 +25,7 @@ namespace Runtime.Commands.Stack
             {
                 _collectableStack.Add(collectableGameObject);
                 collectableGameObject.transform.SetParent(_stackManager.transform);
-                collectableGameObject.transform.localPosition = Vector3.zero;
+                collectableGameObject.transform.localPosition = new Vector3(0, 1f, 0.335f);
             }
             else
             {

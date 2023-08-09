@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     HorizontalInputSpeed: 2
-    HorizontalInputClampNegativeSide: -4.41
-    HorizontalInputClampPositiveSide: -3.9
-    HorizontalInputClampStopValue: 0.07
+    HorizontalInputClampNegativeSides:
+      x: -5
+      y: 5
+    HorizontalInputClampStopValue: 0.007

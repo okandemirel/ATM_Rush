@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Runtime.Data.UnityObject;
+using Runtime.Data.ValueObject;
 using Runtime.Keys;
 using Runtime.Signals;
 using Sirenix.OdinInspector;
@@ -22,13 +24,20 @@ namespace Runtime.Managers
         private Vector2? _mousePosition; //ref type
         private Vector3 _moveVector; //ref type
 
-        [Header("Data")] private CD_Input _data;
+        [Header("Data")] private InputData _data;
         [ShowInInspector] private bool _isFirstTimeTouchTaken;
         [ShowInInspector] private bool _isAvailableForTouch;
 
         #endregion
 
         #endregion
+
+        private void Awake()
+        {
+            _data = GetInputData();
+        }
+
+        private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").Data;
 
         private void OnEnable()
         {
@@ -75,7 +84,6 @@ namespace Runtime.Managers
                 _isTouching = false;
 
                 InputSignals.Instance.onInputReleased?.Invoke();
-                InputSignals.Instance.onChangeInputState?.Invoke(false);
             }
 
             if (Input.GetMouseButtonDown(0) && !IsPointerOverUIElement())
@@ -100,20 +108,20 @@ namespace Runtime.Managers
                         Vector2 mouseDeltaPos = (Vector2)Input.mousePosition - _mousePosition.Value;
 
 
-                        if (mouseDeltaPos.x > _data.Data.HorizontalInputSpeed)
-                            _moveVector.x = _data.Data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
-                        else if (mouseDeltaPos.x < -_data.Data.HorizontalInputSpeed)
-                            _moveVector.x = -_data.Data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
+                        if (mouseDeltaPos.x > _data.HorizontalInputSpeed)
+                            _moveVector.x = _data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
+                        else if (mouseDeltaPos.x < -_data.HorizontalInputSpeed)
+                            _moveVector.x = -_data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
                         else
                             _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity,
-                                _data.Data.HorizontalInputClampStopValue);
+                                _data.HorizontalInputClampStopValue);
 
                         _mousePosition = Input.mousePosition;
 
                         InputSignals.Instance.onInputDragged?.Invoke(new HorizontalnputParams()
                         {
                             HorizontalInputValue = _moveVector.x,
-                            HorizontalInputClampSides = _data.Data.HorizontalInputClampNegativeSides,
+                            HorizontalInputClampSides = _data.HorizontalInputClampNegativeSides,
                         });
                     }
                 }

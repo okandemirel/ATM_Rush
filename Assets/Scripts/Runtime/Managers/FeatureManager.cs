@@ -1,4 +1,3 @@
-using _Modules.SaveModule.Scripts.Managers;
 using Runtime.Commands.Feature;
 using Runtime.Signals;
 using Sirenix.OdinInspector;
@@ -70,17 +69,19 @@ namespace Runtime.Managers
 
         private byte LoadIncomeData()
         {
-            return SaveDistributorManager.GetSaveData().IncomeLevel;
+            if (!ES3.FileExists()) return 1;
+            return (byte)(ES3.KeyExists("IncomeLevel") ? ES3.Load<int>("IncomeLevel") : 1);
         }
 
         private byte LoadStackData()
         {
-            return SaveDistributorManager.GetSaveData().StackLevel;
+            if (!ES3.FileExists()) return 1;
+            return (byte)(ES3.KeyExists("StackLevel") ? ES3.Load<int>("StackLevel") : 1);
         }
 
         internal void SaveFeatureData()
         {
-            SaveDistributorManager.SaveData();
+            SaveSignals.Instance.onSaveGameData?.Invoke();
         }
     }
 }

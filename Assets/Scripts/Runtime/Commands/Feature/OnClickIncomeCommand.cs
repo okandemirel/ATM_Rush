@@ -1,4 +1,3 @@
-using _Modules.SaveModule.Scripts.Managers;
 using Runtime.Managers;
 using Runtime.Signals;
 using UnityEngine;
@@ -7,7 +6,7 @@ namespace Runtime.Commands.Feature
 {
     public class OnClickIncomeCommand
     {
-        private FeatureManager _featureManager;
+        private readonly FeatureManager _featureManager;
         private int _newPriceTag;
         private byte _incomeLevel;
 
@@ -20,7 +19,7 @@ namespace Runtime.Commands.Feature
 
         internal void Execute()
         {
-            _newPriceTag = (int)(SaveDistributorManager.GetSaveData().IncomeLevel -
+            _newPriceTag = (int)(CoreGameSignals.Instance.onGetIncomeLevel() -
                                  ((Mathf.Pow(2, Mathf.Clamp(_incomeLevel, 0, 10)) * 100)));
             _incomeLevel += 1;
             ScoreSignals.Instance.onSendMoney?.Invoke((int)_newPriceTag);

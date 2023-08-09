@@ -34,9 +34,11 @@ MonoBehaviour:
     - Boxophobic.PolyverseSkies.Runtime
     - MoreMountains.NiceVibrations.Haptics
     - Cinemachine
+    - sc.stylizedwater2.runtime
     - MoreMountains.NiceVibrations.Demos
     - Boxophobic.Utils.Scripts
     - MoreMountains.NiceVibrations
+    - sc.stylizedwater2.editor
     - Boxophobic.PolyverseSkies.Scripts
     - Boxophobic.Utils.Editor
     - PPv2URPConverters

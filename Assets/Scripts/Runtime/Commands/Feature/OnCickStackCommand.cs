@@ -1,4 +1,3 @@
-using _Modules.SaveModule.Scripts.Managers;
 using Runtime.Managers;
 using Runtime.Signals;
 using UnityEngine;
@@ -20,7 +19,7 @@ namespace Runtime.Commands.Feature
 
         internal void Execute()
         {
-            _newPriceTag = (int)(SaveDistributorManager.GetSaveData().StackLevel -
+            _newPriceTag = (int)(CoreGameSignals.Instance.onGetStackLevel() -
                                  ((Mathf.Pow(2, Mathf.Clamp(_stackLevel, 0, 10)) * 100)));
             _stackLevel += 1;
             ScoreSignals.Instance.onSendMoney?.Invoke((int)_newPriceTag);

@@ -18,7 +18,8 @@ namespace Runtime.Commands.Stack
 
         public void Execute()
         {
-            for (int i = 1; i < CoreGameSignals.Instance.onGetStackLevel(); i++)
+            var stackLevel = CoreGameSignals.Instance.onGetStackLevel();
+            for (int i = 1; i < stackLevel; i++)
             {
                 GameObject obj = Object.Instantiate(_money);
                 _stackManager.AdderOnStackCommand.Execute(obj);

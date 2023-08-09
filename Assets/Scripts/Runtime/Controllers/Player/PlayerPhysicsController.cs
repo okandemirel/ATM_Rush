@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Runtime.Enums;
 using Runtime.Signals;
 using UnityEngine;
 
@@ -10,8 +11,7 @@ namespace Runtime.Controllers.Player
 
         #region Serialized Variables
 
-        [SerializeField] private new Rigidbody managerRigidbody;
-        [SerializeField] private new Collider collider;
+        [SerializeField] private Rigidbody managerRigidbody;
 
         #endregion
 
@@ -20,7 +20,7 @@ namespace Runtime.Controllers.Player
         private readonly string _obstacle = "Obstacle";
         private readonly string _atm = "ATM";
         private readonly string _collectable = "Collectable";
-        private readonly string _miniGame = "MiniGameArea";
+        private readonly string _conveyor = "Conveyor";
 
         #endregion
 
@@ -44,13 +44,17 @@ namespace Runtime.Controllers.Player
             if (other.CompareTag(_collectable))
             {
                 other.tag = "Collected";
-                //StackSignals.Instance.onInteractionCollectable?.Invoke(other.transform.parent.gameObject);
+                StackSignals.Instance.onInteractionCollectable?.Invoke(other.transform.parent.gameObject);
                 return;
             }
 
-            if (other.CompareTag(_miniGame))
+            if (other.CompareTag(_conveyor))
             {
                 CoreGameSignals.Instance.onMiniGameEntered?.Invoke();
+                DOVirtual.DelayedCall(1.5f,
+                    () => CameraSignals.Instance.onChangeCameraState?.Invoke(CameraStates.MiniGame));
+                DOVirtual.DelayedCall(2.5f,
+                    () => CameraSignals.Instance.onSetCinemachineTarget?.Invoke(CameraTargetState.FakePlayer));
                 return;
             }
         }
